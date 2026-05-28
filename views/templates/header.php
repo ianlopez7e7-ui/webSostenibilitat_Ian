@@ -25,7 +25,8 @@
         }
     ?>
     <script>
-        window.__API_BASE__ = '<?php echo $scheme . '://' . $apiHost; ?>';
+        // Protocol-relative API base to avoid mixed-content (browser will use current page protocol)
+        window.__API_BASE__ = '<?php echo '//' . $apiHost; ?>';
     </script>
 </head>
 <body>
@@ -43,6 +44,8 @@
                     <li><a href="/index.php?url=programacio">Codi Eficient</a></li>
                     <li><a href="/index.php?url=empresa">Informe Empresa</a></li>
                     <li><a href="/index.php?url=projectes">Projectes i Tecnologies</a></li>
+                    <li><a href="/index.php?url=noticies">Notícies</a></li>
+                    <li><a href="/index.php?url=recursos">Recursos</a></li>
                     <li><a href="/index.php?url=marketplace">Marketplace</a></li>
                     <li><a href="/index.php?url=marketplace/panell" class="ruta-protegida" style="display:none;">El Meu Panell</a></li>
                     <li><a href="/index.php?url=contacte">Contacte</a></li>

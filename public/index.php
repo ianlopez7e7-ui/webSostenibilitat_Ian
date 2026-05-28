@@ -54,6 +54,12 @@ switch ($ruta) {
     case 'projectes':
         $paginesCtrl->projectes();
         break;
+    case 'noticies':
+        $paginesCtrl->noticies();
+        break;
+    case 'recursos':
+        $paginesCtrl->recursos();
+        break;
     case 'projectes/detall':
         $paginesCtrl->projecteDetall();
         break;

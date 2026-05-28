@@ -507,3 +507,76 @@ body {
 .contenidor-peu p {
     margin: 4px 0;
 }
+
+/* ==========================================
+   VISTA: NOTÍCIES I RECURSOS (ARTICLE LISTINGS)
+   ========================================== */
+.seccio-noticies, .seccio-recursos {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.seccio-noticies h1, .seccio-recursos h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--color-principal);
+}
+
+.seccio-noticies > p:first-of-type, .seccio-recursos > p:first-of-type {
+    text-align: center;
+    color: var(--color-text-secundari);
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+}
+
+/* Llista d'articles individual */
+.seccio-noticies article, .seccio-recursos li {
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borda);
+    border-radius: var(--radi-vora);
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: var(--transicio);
+}
+
+.seccio-noticies article:hover, .seccio-recursos li:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.seccio-noticies article h3, .seccio-recursos li > a {
+    color: var(--color-principal);
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+}
+
+.seccio-recursos li > a {
+    display: block;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.seccio-recursos li > a:hover {
+    color: var(--color-secundari);
+}
+
+.seccio-noticies article p, .seccio-recursos li > p {
+    color: var(--color-text);
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.seccio-noticies .boto-secundari, .seccio-recursos .boto-secundari {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.nota-final {
+    text-align: center;
+    color: var(--color-text-secundari);
+    font-size: 0.9rem;
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--color-borda);
+    font-style: italic;
+}
