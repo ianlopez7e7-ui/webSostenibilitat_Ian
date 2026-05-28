@@ -1,0 +1,30 @@
+{
+  "usuaris": [
+    {
+      "id": 1,
+      "nom": "Administrador Circular",
+      "email": "admin@ods7.org",
+      "contrasenya": "12345678",
+      "rol": "administrador"
+    },
+    {
+      "id": 2,
+      "nom": "Joan Solar",
+      "email": "joan@gmail.com",
+      "contrasenya": "87654321",
+      "rol": "usuari"
+    }
+  ],
+  "components": [
+    {
+      "id": 1,
+      "titol": "Panell Solar Monocristal·lí 300W",
+      "categoria_id": 1,
+      "descripcio": "Excedent d'instal·lació industrial. Totalment operatiu.",
+      "tipus": "donacio",
+      "estat": "usat",
+      "propietari_id": 2,
+      "ubicacio": "Girona"
+    }
+  ]
+}

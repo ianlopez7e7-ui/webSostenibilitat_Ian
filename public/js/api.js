@@ -37,22 +37,30 @@ async function carregarCatalegPublic() {
 
     try {
         // Crida de xarxa asíncrona neta cap al Front Controller de PHP
-        const resposta = await fetch(`/api/components/llistar?${urlParams.toString()}`);
+        const resposta = await fetch(`http://localhost:3000/api/components`);
         
-        if (!resposta.ok) throw new Error('Error en la resposta de la xarxa.');
+        if (!resposta.ok) throw new Error('Error en la  resposta de la xarxa.');
         
         const components = await resposta.json();
+
+        // Filtratge en client (RA5)
+        let filtrats = components;
+        if (cerca) filtrats = filtrats.filter(c => c.titol.toLowerCase().includes(cerca.toLowerCase()));
+        if (categoria) filtrats = filtrats.filter(c => c.categoria_id === parseInt(categoria));
+        if (tipus) filtrats = filtrats.filter(c => c.tipus === tipus);
+        if (ordre === 'desc') filtrats.sort((a,b) => b.titol.localeCompare(a.titol));
+        else filtrats.sort((a,b) => a.titol.localeCompare(b.titol));
         
         // Netejar el node del DOM per evitar acumulacions ineficients (RA5)
         graella.innerHTML = '';
 
-        if (components.length === 0) {
+        if (filtrats.length === 0) {
             graella.innerHTML = '<p class="alerta-buida">No s\'ha trobat cap component excedent que coincideixi amb els criteris.</p>';
             return;
         }
 
         // Construcció del DOM dinàmic mitjançant fragments estructurals
-        components.forEach(comp => {
+        filtrats.forEach(comp => {
             const targeta = document.createElement('div');
             targeta.className = `targeta-recurs circular-${comp.tipus}`;
             targeta.innerHTML = `
@@ -102,7 +110,7 @@ function configurarPeticionsFormularis() {
             const missatgeServidor = document.getElementById('missatge-servidor-login');
 
             try {
-                const resposta = await fetch('/api/login', {
+                const resposta = await fetch('http://localhost:3000/api/simulat/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, contrasenya })
@@ -136,7 +144,7 @@ function configurarPeticionsFormularis() {
             const missatgeServidor = document.getElementById('missatge-servidor-registre');
 
             try {
-                const resposta = await fetch('/api/registre', {
+                const resposta = await fetch('http://localhost:3000/api/simulat/registre', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nom, email, contrasenya })
@@ -187,8 +195,8 @@ function configurarFluxPanellPrivat() {
             };
 
             try {
-                // POST Asíncron: Creació de recurs passant el token JWT a la capçalera
-                const resposta = await fetch('/api/components/crear', {
+                // POST Asíncron: Creació de recurs connectant directament a Node.js
+                const resposta = await fetch('http://localhost:3000/api/components', {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -223,7 +231,7 @@ async function llistarMaterialsPropis() {
     if (!contenidor) return;
 
     try {
-        const resposta = await fetch('/api/components/llistar');
+        const resposta = await fetch('http://localhost:3000/api/components');
         
         if (!resposta.ok) throw new Error('Error de xarxa en obtenir els materials.');
         
@@ -258,7 +266,7 @@ async function llistarMaterialsPropis() {
 }
 
 /**
- * Operació DELETE asíncrona: Retira un component passant el token JWT a la capçalera HTTP
+ * Operació DELETE asíncrona: Retira un component de l'API de Node
  */
 async function eliminarRecursDelBanc(id) {
     if (!confirm('Segur que vols retirar aquest element del banc de recursos circular?')) return;
@@ -266,8 +274,8 @@ async function eliminarRecursDelBanc(id) {
     const token = localStorage.getItem('jwt_token');
 
     try {
-        // DELETE Asíncron: Eliminació del recurs protegit per l'API del servidor PHP
-        const resposta = await fetch(`/api/components/eliminar?id=${id}`, {
+        // DELETE Asíncron: Eliminació del recurs directament a Node.js
+        const resposta = await fetch(`http://localhost:3000/api/components/${id}`, {
             method: 'DELETE',
             headers: { 
                 'Authorization': `Bearer ${token}`,
@@ -277,7 +285,7 @@ async function eliminarRecursDelBanc(id) {
 
         if (resposta.ok) {
             alert('Component retirat correctament del mercat circular.');
-            llistarMaterialsPropis(); // Refresca el llistat immediatament sense recarregar la pàgina (UI/UX)
+            llistarMaterialsPropis(); // Refresca immediatament el llistat (UI/UX)
         } else {
             const err = await resposta.json();
             alert(err.error || 'No s\'ha pogut completar l\'acció d\'esborrat.');
@@ -287,6 +295,5 @@ async function eliminarRecursDelBanc(id) {
     }
 }
 
-// Fem la funció accessible a nivell de finestra (window) 
-// Això permet que el listener 'onclick' inserit dinàmicament al codi HTML la pugui invocar sense problemes.
+// Fem la funció accessible globalment per al listener onclick de l'HTML dinàmic
 window.eliminarRecursDelBanc = eliminarRecursDelBanc;
