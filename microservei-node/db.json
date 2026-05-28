@@ -20,11 +20,80 @@
       "id": 1,
       "titol": "Panell Solar Monocristal·lí 300W",
       "categoria_id": 1,
-      "descripcio": "Excedent d'instal·lació industrial. Totalment operatiu.",
+      "descripcio": "Excedent d'instal·lació industrial. Té un rendiment certificat del 95% i està totalment operatiu.",
       "tipus": "donacio",
       "estat": "usat",
       "propietari_id": 2,
       "ubicacio": "Girona"
-    }
-  ]
+    },
+    {
+      "id": 2,
+      "titol": "Bateria de Liti 12V 100Ah",
+      "categoria_id": 2,
+      "descripcio": "Ideal per a projectes d'emmagatzematge domèstic o aïllada. Prové de desmuntatge per ampliació.",
+      "tipus": "lloguer",
+      "estat": "reparat",
+      "propietari_id": 2,
+      "ubicacio": "Tarragona"
+    },
+    {
+      "id": 3,
+      "titol": "Inversor d'Onda Pura Híbrid 3kW",
+      "categoria_id": 3,
+      "descripcio": "Inversor per a instal·lació solar fotovoltaica. S'intercanvia per material elèctric de secció de cablejat.",
+      "tipus": "intercanvi",
+      "estat": "nou-excedent",
+      "propietari_id": 1,
+      "ubicacio": "Manresa"
+    },
+    {
+      "id": 4,
+      "titol": "Regulador de Càrrega MPPT 40A",
+      "categoria_id": 3,
+      "descripcio": "Maximitza l'eficiència dels teus panells de l'ODS 7. Es cedeix gratuïtament a entitats sense ànim de lucre.",
+      "tipus": "donacio",
+      "estat": "usat",
+      "propietari_id": 2,
+      "ubicacio": "Olot"
+    },
+    {
+      "id": 5,
+      "titol": "Mesurador de Rendiment Fotovoltaic",
+      "categoria_id": 4,
+      "descripcio": "Eina de diagnòstic essencial per comprovar la degradació de plaques velles. Es lloga per dies o caps de setmana.",
+      "tipus": "lloguer",
+      "estat": "usat",
+      "propietari_id": 1,
+      "ubicacio": "Barcelona"
+    },
+    {
+      "id": 6,
+      "titol": "Kit de 4 Plaques Solars Flexibles 100W",
+      "categoria_id": 1,
+      "descripcio": "Excedent d'una instal·lació en furgoneta camper. Busco intercanvi per bateries AGM o material de càmping.",
+      "tipus": "intercanvi",
+      "estat": "nou-excedent",
+      "propietari_id": 2,
+      "ubicacio": "Lleida"
+    },
+    {
+  "id": 7,
+  "titol": "Panell Bifacial 350W - Excedent",
+  "categoria_id": 1,
+  "descripcio": "Panell bifacial en bon estat, ideal per a projectes d'optimització d'energia i monitoratge ODS7.",
+  "tipus": "donacio",
+  "estat": "revisat",
+  "propietari_id": 2,
+  "ubicacio": "Barcelona"
+},
+{
+  "id": 8,
+  "titol": "Bateria LFP 48V 200Ah - Banc Comunitari",
+  "categoria_id": 2,
+  "descripcio": "Bateria per emmagatzematge d'energia per microgrid comunitari. Documents de manteniment inclosos.",
+  "tipus": "lloguer",
+  "estat": "bon-estat",
+  "propietari_id": 1,
+  "ubicacio": "Girona"
+}]
 }

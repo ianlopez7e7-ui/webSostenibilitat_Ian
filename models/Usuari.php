@@ -9,7 +9,7 @@ require_once __DIR__ . '/../config/sqlite.php';
 class Usuari {
     private $db;
 
-    public function __with() {
+    public function __construct() {
         $this->db = ConnexioSQL::obtenirConnexio();
     }
 
@@ -49,6 +49,23 @@ class Usuari {
             return $stmt->fetch();
         } catch (PDOException $e) {
             error_log("Error en cercar l'usuari: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Cerca un usuari per ID per mostrar dades de contacte i perfil.
+     */
+    public function cercarPerId($id) {
+        try {
+            $sql = "SELECT id, nom, email, rol, creat_el FROM usuaris WHERE id = :id LIMIT 1";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            error_log("Error en cercar l'usuari per id: " . $e->getMessage());
             return false;
         }
     }

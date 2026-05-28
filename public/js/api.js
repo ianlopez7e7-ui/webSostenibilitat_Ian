@@ -3,6 +3,14 @@
  * Cobreix el RA7 (Mètode fetch, Async/Await i tractament de promeses).
  */
 
+// Base de l'API dinàmica: construeix l'origen amb el mateix hostname adaptant-se a Codespaces
+const API_BASE = window.__API_BASE__ || (() => {
+    if (location.hostname.endsWith('.app.github.dev')) {
+        return `${location.protocol}//${location.hostname.replace(/-\d+\.app\.github\.dev$/, '-3000.app.github.dev')}`;
+    }
+    return `${location.protocol}//${location.hostname}:3000`;
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
     // Detectar de forma automàtica quina pàgina de l'arquitectura estem visitant
     const graellaComponents = document.getElementById('graella-components');
@@ -36,10 +44,11 @@ async function carregarCatalegPublic() {
     const urlParams = new URLSearchParams({ cerca, categoria_id: categoria, tipus, ordre });
 
     try {
-        // Crida de xarxa asíncrona neta cap al Front Controller de PHP
-        const resposta = await fetch(`http://localhost:3000/api/components`);
+        // Crida de xarxa asíncrona cap al microservei Node
+        console.log('Fetching components from', `${API_BASE}/api/components`);
+        const resposta = await fetch(`${API_BASE}/api/components`);
         
-        if (!resposta.ok) throw new Error('Error en la  resposta de la xarxa.');
+        if (!resposta.ok) throw new Error('Error en la resposta de la xarxa: ' + resposta.status);
         
         const components = await resposta.json();
 
@@ -110,7 +119,7 @@ function configurarPeticionsFormularis() {
             const missatgeServidor = document.getElementById('missatge-servidor-login');
 
             try {
-                const resposta = await fetch('http://localhost:3000/api/simulat/login', {
+                const resposta = await fetch(`${API_BASE}/api/simulat/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, contrasenya })
@@ -124,7 +133,7 @@ function configurarPeticionsFormularis() {
                     localStorage.setItem('usuari_nom', resultat.usuari.nom);
                     localStorage.setItem('usuari_rol', resultat.usuari.rol);
                     
-                    window.location.href = '/marketplace/panell';
+                    window.location.href = '/index.php?url=marketplace/panell';
                 } else {
                     missatgeServidor.className = "missatge-alerta error-text";
                     missatgeServidor.textContent = resultat.error || 'Error d\'accés.';
@@ -144,7 +153,7 @@ function configurarPeticionsFormularis() {
             const missatgeServidor = document.getElementById('missatge-servidor-registre');
 
             try {
-                const resposta = await fetch('http://localhost:3000/api/simulat/registre', {
+                const resposta = await fetch(`${API_BASE}/api/simulat/registre`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ nom, email, contrasenya })
@@ -196,7 +205,7 @@ function configurarFluxPanellPrivat() {
 
             try {
                 // POST Asíncron: Creació de recurs connectant directament a Node.js
-                const resposta = await fetch('http://localhost:3000/api/components', {
+                const resposta = await fetch(`${API_BASE}/api/components`, {
                     method: 'POST',
                     headers: { 
                         'Content-Type': 'application/json',
@@ -231,7 +240,7 @@ async function llistarMaterialsPropis() {
     if (!contenidor) return;
 
     try {
-        const resposta = await fetch('http://localhost:3000/api/components');
+        const resposta = await fetch(`${API_BASE}/api/components`);
         
         if (!resposta.ok) throw new Error('Error de xarxa en obtenir els materials.');
         
@@ -275,7 +284,7 @@ async function eliminarRecursDelBanc(id) {
 
     try {
         // DELETE Asíncron: Eliminació del recurs directament a Node.js
-        const resposta = await fetch(`http://localhost:3000/api/components/${id}`, {
+        const resposta = await fetch(`${API_BASE}/api/components/${id}`, {
             method: 'DELETE',
             headers: { 
                 'Authorization': `Bearer ${token}`,

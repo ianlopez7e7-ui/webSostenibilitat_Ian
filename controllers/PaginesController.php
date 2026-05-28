@@ -61,6 +61,34 @@ class PaginesController {
         $this->carregarVista('marketplace/panell', ['titol' => 'El Meu Panell de Recursos Excedents']);
     }
 
+    public function projectes() {
+        $components = $this->modelComponent->obtenirTots();
+        $this->carregarVista('pagines/projectes', [
+            'titol' => 'Projectes i Tecnologies de la Comunitat',
+            'projectes' => $components
+        ]);
+    }
+
+    public function projecteDetall() {
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $component = $this->modelComponent->obtenirPerId($id);
+
+        if (!$component) {
+            http_response_code(404);
+            die("Projecte no trobat o identificador invàlid.");
+        }
+
+        require_once __DIR__ . '/../models/Usuari.php';
+        $usuariModel = new Usuari();
+        $propietari = $usuariModel->cercarPerId($component['propietari_id']);
+
+        $this->carregarVista('pagines/projecte_detall', [
+            'titol' => 'Detall de la Tecnologia / Projecte',
+            'projecte' => $component,
+            'propietari' => $propietari
+        ]);
+    }
+
     public function loginRegistre() {
         $this->carregarVista('pagines/autenticacio', ['titol' => 'Accés i Registre de la Comunitat']);
     }

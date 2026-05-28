@@ -47,6 +47,19 @@ class Component {
     }
 
     /**
+     * Retorna un component concret per ID a partir del catàleg del microservei.
+     */
+    public function obtenirPerId($id) {
+        $components = $this->obtenirTots();
+        foreach ($components as $component) {
+            if ((int)$component['id'] === (int)$id) {
+                return $component;
+            }
+        }
+        return null;
+    }
+
+    /**
      * CREATE: Afegeix un nou component excedent (Panell, Bateria...) al banc
      */
     public function crear($dades) {

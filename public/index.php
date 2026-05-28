@@ -51,6 +51,12 @@ switch ($ruta) {
     case 'marketplace/panell':
         $paginesCtrl->marketplacePanell();
         break;
+    case 'projectes':
+        $paginesCtrl->projectes();
+        break;
+    case 'projectes/detall':
+        $paginesCtrl->projecteDetall();
+        break;
     case 'comunitat':
         $paginesCtrl->loginRegistre();
         break;

@@ -45,14 +45,14 @@ function inicialitzarEstructuraNavbar() {
     const enllacComunitat = document.getElementById('enllac-comunitat');
     const botoSortir = document.getElementById('boto-sortir');
 
-    if (token) {
+            if (token) {
         // Usuari autenticat: Mostrem opcions privades i botó de tancar sessió
         rutesProtegides.forEach(el => el.style.display = 'inline-block');
         if (botoSortir) botoSortir.style.display = 'inline-block';
         if (enllacComunitat) {
             const nomUsuari = localStorage.getItem('usuari_nom') || 'Perfil';
-            enllacComunitat.textContent = `👤 ${nomUsuari}`;
-            enllacComunitat.href = '/marketplace/panell';
+                    enllacComunitat.textContent = `👤 ${nomUsuari}`;
+                    enllacComunitat.href = '/index.php?url=marketplace/panell';
         }
     }
 
@@ -60,7 +60,7 @@ function inicialitzarEstructuraNavbar() {
         botoSortir.addEventListener('click', (e) => {
             e.preventDefault();
             localStorage.clear();
-            window.location.href = '/inici';
+            window.location.href = '/index.php?url=inici';
         });
     }
 }
