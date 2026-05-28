@@ -46,11 +46,23 @@ async function carregarCatalegPublic() {
     try {
         // Crida de xarxa asíncrona cap al microservei Node
         console.log('Fetching components from', `${API_BASE}/api/components`);
-        const resposta = await fetch(`${API_BASE}/api/components`);
-        
-        if (!resposta.ok) throw new Error('Error en la resposta de la xarxa: ' + resposta.status);
-        
-        const components = await resposta.json();
+        let resposta;
+        try {
+            resposta = await fetch(`${API_BASE}/api/components`);
+            if (!resposta.ok) throw new Error('Error en la resposta de la xarxa: ' + resposta.status);
+            var components = await resposta.json();
+        } catch (errPrimary) {
+            console.warn('Crida directa a Node fallida, intentant fallback PHP:', errPrimary);
+            // Fallback: cridar l'endpoint PHP local que usa modelComponent (serve-side)
+            try {
+                resposta = await fetch('/index.php?url=api/components/llistar&' + new URLSearchParams(urlParams).toString());
+                if (!resposta.ok) throw new Error('Fallback PHP error: ' + resposta.status);
+                var components = await resposta.json();
+            } catch (errFallback) {
+                console.error('Fallback també ha fallat:', errFallback);
+                throw errFallback;
+            }
+        }
 
         // Filtratge en client (RA5)
         let filtrats = components;

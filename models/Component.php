@@ -5,8 +5,17 @@
  */
 
 class Component {
-    // URL del microservei local de Node.js executant-se a Codespaces
-    private $urlAPI = "http://localhost:3000/api/components";
+    // L'URL base de l'API es llegeix des d'una variable d'entorn `API_BASE` o fa fallback a localhost:3000
+    private $urlAPI;
+
+    public function __construct()
+    {
+        $base = getenv('API_BASE') ?: getenv('API_HOST') ?: 'http://localhost:3000';
+        // Accepta valors com "//host:3000" o "http://host:3000"
+        if (str_starts_with($base, '//')) $base = 'http:' . $base;
+        if (!str_starts_with($base, 'http')) $base = 'http://' . $base;
+        $this->urlAPI = rtrim($base, '/') . '/api/components';
+    }
 
     /**
      * Funció auxiliar per centralitzar les peticions HTTP cap a l'API de Node
@@ -16,7 +25,7 @@ class Component {
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $metode);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         
         // Estalvi de recursos i optimització de trànsit intern (RA5)
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -30,7 +39,14 @@ class Component {
 
         $resposta = curl_exec($ch);
         $codiEstat = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlErrNo = curl_errno($ch);
+        $curlErr = curl_error($ch);
         curl_close($ch);
+
+        if ($curlErrNo !== 0) {
+            error_log("Component::ferPeticioHTTP curl error ({$curlErrNo}): {$curlErr}");
+            return false;
+        }
 
         if ($codiEstat >= 200 && $codiEstat < 300) {
             return json_decode($resposta, true);

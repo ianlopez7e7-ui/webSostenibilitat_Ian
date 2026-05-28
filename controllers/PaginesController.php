@@ -6,6 +6,14 @@
 
 class PaginesController {
 
+    private $modelComponent;
+
+    public function __construct()
+    {
+        require_once __DIR__ . '/../models/Component.php';
+        $this->modelComponent = new Component();
+    }
+
     /**
      * Funció auxiliar per carregar una vista injectant la capçalera i el peu
      */
@@ -39,6 +47,14 @@ class PaginesController {
 
     public function programacio() {
         $this->carregarVista('pagines/programacio', ['titol' => 'Eficiència Energètica en Programació Web']);
+    }
+
+    public function noticies() {
+        $this->carregarVista('pagines/noticies', ['titol' => 'Notícies i Novetats']);
+    }
+
+    public function recursos() {
+        $this->carregarVista('pagines/recursos', ['titol' => 'Recursos i Referències']);
     }
 
     public function empresa() {
