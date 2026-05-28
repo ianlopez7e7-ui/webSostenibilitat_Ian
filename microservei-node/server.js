@@ -10,7 +10,12 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors()); // Permet comunicació asíncrona des de qualsevol origen (PHP o Front-end)
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: false
+}));
 
 const RUTA_BD = path.join(__dirname, 'db.json');
 
@@ -143,7 +148,7 @@ app.delete('/api/components/:id', async (req, res) => {
     }
 });
 
-const PORT = 3000;
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`[NODE] API REST en paral·lel activa al port ${PORT}`);
 });
