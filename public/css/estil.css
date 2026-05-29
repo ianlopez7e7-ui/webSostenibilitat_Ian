@@ -580,3 +580,55 @@ body {
     border-top: 1px solid var(--color-borda);
     font-style: italic;
 }
+
+/* ==========================================
+   VISTA: PROJECTES I TECNOLOGIES (FIX SOLAPAMENT)
+   ========================================== */
+.seccio-projectes {
+    margin-bottom: 40px;
+}
+
+/* Creem una distribució en graella per separar els articles */
+.grid-projectes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+/* Convertim cada bloc en una targeta independent amb el teu estil de la web */
+.targeta-projecte {
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borda);
+    border-radius: var(--radi-vora);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 12px; /* Marges interns verticals per evitar qualsevol solapament */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    transition: var(--transicio);
+}
+
+.targeta-projecte:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Estils de format intern per a les dades meta i botons */
+.targeta-projecte h2 {
+    color: var(--color-principal);
+    font-size: 1.4rem;
+}
+
+.meta-projecte {
+    font-size: 0.85rem;
+    color: var(--color-text-secundari);
+}
+
+.targeta-projecte .boto-secundari {
+    align-self: flex-start; /* El botó s'ajusta a la seva mida real en lloc d'estirar-se */
+    margin-top: 10px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
