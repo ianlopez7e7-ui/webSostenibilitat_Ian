@@ -10,5 +10,6 @@
     <script src="/js/validacions.js"></script>
     <script src="/js/api.js"></script>
     <script src="/js/noticies.js"></script>
+    <script src="/js/contacte.js"></script>
 </body>
 </html>

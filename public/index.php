@@ -13,6 +13,7 @@ require_once __DIR__ . '/../controllers/PaginesController.php';
 require_once __DIR__ . '/../controllers/AutenticacioController.php';
 require_once __DIR__ . '/../controllers/MarketplaceController.php';
 require_once __DIR__ . '/../controllers/NoticiesController.php';
+require_once __DIR__ . '/../controllers/ContacteController.php';
 
 // Obtenir la ruta sol·licitada (per defecte 'inici')
 $ruta = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'inici';
@@ -119,6 +120,13 @@ switch ($ruta) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $noticiesCtrl = new NoticiesController();
             $noticiesCtrl->eliminar();
+        } else http_response_code(405);
+        break;
+
+    case 'api/contacte/enviar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $contacteCtrl = new ContacteController();
+            $contacteCtrl->enviar();
         } else http_response_code(405);
         break;
 

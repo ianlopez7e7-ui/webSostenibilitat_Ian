@@ -57,6 +57,16 @@ class ConnexioSQL {
                         ':url' => 'https://www.un.org/sustainabledevelopment/es/sustainable-development-goals/'
                     ]);
                 }
+
+                self::$instancia->exec(
+                    "CREATE TABLE IF NOT EXISTS contacte (" .
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " .
+                    "nom TEXT NOT NULL, " .
+                    "email TEXT NOT NULL, " .
+                    "missatge TEXT NOT NULL, " .
+                    "data_creacio DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP" .
+                    ")"
+                );
             } catch (PDOException $e) {
                 // Per seguretat, en producció no es mostra el missatge d'error de la BD directament al client
                 error_log("Error de connexió a la BD: " . $e->getMessage());
