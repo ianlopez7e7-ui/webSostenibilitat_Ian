@@ -9,5 +9,6 @@
     <!-- Carrega centralitzada dels scripts del Front-end (Mòdul Client) -->
     <script src="/js/validacions.js"></script>
     <script src="/js/api.js"></script>
+    <script src="/js/noticies.js"></script>
 </body>
 </html>

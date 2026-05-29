@@ -12,6 +12,7 @@ ini_set('log_errors', 1);
 require_once __DIR__ . '/../controllers/PaginesController.php';
 require_once __DIR__ . '/../controllers/AutenticacioController.php';
 require_once __DIR__ . '/../controllers/MarketplaceController.php';
+require_once __DIR__ . '/../controllers/NoticiesController.php';
 
 // Obtenir la ruta sol·licitada (per defecte 'inici')
 $ruta = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'inici';
@@ -91,6 +92,34 @@ switch ($ruta) {
     case 'api/components/eliminar':
         if ($_SERVER['REQUEST_METHOD'] === 'DELETE') $marketplaceCtrl->eliminar();
         else http_response_code(405);
+        break;
+
+    case 'api/noticies/llistar':
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $noticiesCtrl = new NoticiesController();
+            $noticiesCtrl->llistar();
+        } else http_response_code(405);
+        break;
+
+    case 'api/noticies/crear':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $noticiesCtrl = new NoticiesController();
+            $noticiesCtrl->crear();
+        } else http_response_code(405);
+        break;
+
+    case 'api/noticies/actualitzar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $noticiesCtrl = new NoticiesController();
+            $noticiesCtrl->actualitzar();
+        } else http_response_code(405);
+        break;
+
+    case 'api/noticies/eliminar':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $noticiesCtrl = new NoticiesController();
+            $noticiesCtrl->eliminar();
+        } else http_response_code(405);
         break;
 
     // === ERROR 404 - RUTA NO TROBADA ===
