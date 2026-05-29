@@ -1,56 +1,171 @@
-Aquí tens la traducció al català de la primera part del teu fitxer README.md. Com que el text original ja estava parcialment en català, s'han corregit les errades ortogràfiques, s'ha unificat l'estil i s'han mantingut intactes tots els termes web en anglès (com hub, marketplace, front, scripts, etc.) i els blocs de codi.
-------------------------------
-## Hub d'Energia Circular (ODS 7)## Descripció del projecte
+# Hub d'Energia Circular (ODS 7)
+
+## Descripció del projecte
 Aquest projecte és una aplicació web modular MVC en PHP complementada amb un microservei Node.js/Express.
-El seu objectiu és crear un hub tecnològic i un fòrum de divulgació d'energies renovables vinculat a l'ODS 7: Energia Assequible i No Contaminant.
+El seu objectiu és crear un hub tecnològic i fòrum de divulgació d'energies renovables vinculat a l'ODS 7: Energia Assequible i No Contaminant.
 La plataforma integra un marketplace d'economia circular per a components renovables excedents, on es pot oferir donació, intercanvi o lloguer.
+
 ## Objectiu i impacte sostenible
 La web pretén:
+- Promoure el consum responsable i l'allargament del cicle de vida de materials tecnològics.
+- Reduir la generació de residus electrònics (residus d'electrònica).
+- Facilitar la col·laboració entre empreses, entitats i individus per impulsar solucions sostenibles.
+- Contribuir als principis ASG: ambiental, social i governança.
 
-* Promoure el consum responsable i l'allargament del cicle de vida de materials tecnològics.
-* Reduir la generació de residus electrònics (e-waste).
-* Facilitar la col·laboració entre empreses, entitats i individus per impulsar solucions sostenibles.
-* Contribuir als principis ASG: ambiental, social i governança.
+## Instruccions d'instal·lació i execució
 
-## Instruccions d'instal·lació i execució## 1. Executar el microservei Node
-
+### 1. Executar el microservei Node
+```bash
 cd microservei-node
 npm install
 npm start
+```
+El microservei escolta per defecte al port `3000`.
 
-El microservei escolta per defecte al port 3000.
-## 2. Executar el servidor PHP
-
+### 2. Executar el servidor PHP
+```bash
 cd /workspaces/webSostenibilitat_Ian
 php -S localhost:8000 -t public
-
+```
 I accedir a:
+- `http://localhost:8000/index.php?url=inici`
+- `http://localhost:8000/index.php?url=marketplace`
 
-* http://localhost:8000/index.php?url=inici
-* http://localhost:8000/index.php?url=marketplace
+### 3. Notes de Codespaces
+- Si fas servir GitHub Codespaces, exposa el port `3000` perquè el front pugui cridar l'API Node.
+- El projecte adapta l'origen de l'API per a `*.app.github.dev`.
 
-## 3. Notes de Codespaces
+## Arquitectura del projecte
 
-* Si fas servir GitHub Codespaces, exposa el port 3000 perquè el front pugui cridar l'API Node.
-* El projecte adapta l'origen de l'API per a *.app.github.dev.
+### Interfície de client
+- HTML5, CSS i JavaScript.
+- MVC des del costat servidor amb PHP.
+- Navegació amb una barra de navegació funcional.
+- Formes d'interacció amb el DOM i validacions al client.
+- Mode Fosc i optimització de càrrega de scripts.
 
-## Arquitectura del projecte## Interfície de client
+### Sistema de servidor
+- Microservei Node.js amb Express al directori `microservei-node/`.
+- Base de dades local `db.json` per a components i usuaris simulats (Node API).
+- Controlador principal PHP `public/index.php` com a controlador frontal.
+- Base de dades SQLite `dades_projecte.db` per a usuaris, notícies i missatges de contacte.
 
-* HTML5, CSS i JavaScript.
-* MVC des del costat del servidor amb PHP.
-* Navegació amb una barra de navegació funcional.
-* Formes d'interacció amb el DOM i validacions al client.
-* Mode fosc i optimització de càrrega de scripts.
+## Pàgines i rutes implementades
+L'aplicació disposa de **12 pàgines/rutes principals** més punts finals API:
 
-## Sistema de servidor
+1. `/index.php?url=inici` — Pàgina inicial del projecte.
+2. `/index.php?url=ods` — Explicació de l'ODS 7 i impacte ASG.
+3. `/index.php?url=desenvolupament` — Pràctiques sostenibles del desenvolupador.
+4. `/index.php?url=programacio` — Codi Eficient i bones pràctiques.
+5. `/index.php?url=empresa` — Anàlisi d'una empresa real de sostenibilitat.
+6. `/index.php?url=projectes` — Llista de tecnologies / projectes de la comunitat.
+7. `/index.php?url=projectes/detall&id=<id>` — Detall de projecte amb dades de contacte.
+8. `/index.php?url=marketplace` — Banc de recursos circulars amb filtres i llistat.
+9. `/index.php?url=marketplace/panell` — Panell privat per a usuari autenticat.
+10. `/index.php?url=noticies` — Notícies CRUD amb administrador.
+11. `/index.php?url=contacte` — Pàgina de contacte amb emmagatzematge de missatges.
+12. `/index.php?url=comunitat` — Identificació i registre de la comunitat.
 
-* Microservei Node.js com Express al directori microservei-node/.
-* Base de dades local db.json per a components i usuaris simulats (Node API).
-* Controlador principal PHP public/index.php com a controlador frontal (front controller).
-* Base de dades SQLite dades_projecte.db per a usuaris, notícies i missatges de contacte.
+## Infraestructura de dades i API
 
-------------------------------
-Si ho necessites, em pots demanar que continuï traduint i revisant la resta de seccions del document, com la Infraestructura de dades o la Cobertura de l'especificació.
+### API Node.js (`microservei-node`)
+Punts finals per a components i usuaris simulats. La base de dades és `db.json`.
+
+**Components (Economia Circular):**
+- `GET /api/components` — Retorna tots els components del marketplace.
+- `POST /api/components` — Afegeix un component nou.
+- `DELETE /api/components/:id` — Elimina un component per ID.
+
+**Autenticació simulada (Node):**
+- `POST /api/simulat/login` — Identificació simulada amb token.
+- `POST /api/simulat/registre` — Registre de nous usuaris.
+
+### API PHP (`public/index.php`)
+Punts finals que accedeixen a SQLite `dades_projecte.db`.
+
+**Autenticació (SQLite/JWT):**
+- `POST /index.php?url=api/login` — Identificació amb credencials SQLite (JWT).
+- `POST /index.php?url=api/registre` — Registre a SQLite.
+
+**Components (Marketplace):**
+- `GET /index.php?url=api/components/llistar` — Llista components amb filtres.
+- `POST /index.php?url=api/components/crear` — Crea component (JWT requerit).
+- `DELETE /index.php?url=api/components/eliminar` — Elimina component (JWT requerit).
+
+**Notícies (CRUD):**
+- `GET /index.php?url=api/noticies/llistar` — Llista notícies.
+- `POST /index.php?url=api/noticies/crear` — Crea notícia.
+- `POST /index.php?url=api/noticies/actualitzar` — Actualitza notícia.
+- `POST /index.php?url=api/noticies/eliminar` — Elimina notícia.
+
+**Contacte:**
+- `POST /index.php?url=api/contacte/enviar` — Emmagatzema missatge de contacte.
+
+### SQLite (`dades_projecte.db`)
+Taules de la base de dades:
+- `usuaris` — Usuaris registrats amb rol (usuari/administrador).
+- `noticies` — Notícies i blog entries amb metadades.
+- `contacte` — Missatges de contacte rebuts.
+
+## Característiques principals del projecte
+
+- Consum asíncron de dades amb `fetch()` i `async/await`.
+- CRUD de components: lectura, creació i eliminació.
+- CRUD de notícies: lectura, creació, actualització i eliminació.
+- Emmagatzematge de missatges de contacte.
+- Filtratge i ordenació al costat client.
+- Gestió de sessió amb token JWT i navegació privada.
+- Mode Fosc per estalviar energia en pantalles OLED.
+- Arquitectura MVC separant presentació, lògica i models.
+- Models abstrauen accés a BD (PDO/SQLite).
+- API REST amb punts finals ben documentats.
+- Compatibilitat amb Codespaces adaptant `API_BASE`.
+
+## Cobertura de especificació RA4 (Economia Circular)
+
+### Comparació amb requeriments de la tasca
+
+#### ✅ Implementat correctament
+
+**Públic (sense identificació):**
+- ✅ Mostrar productes existents (marketplace llistat)
+- ✅ Filtres de cerca per paraula (filtre-cerca)
+- ✅ Filtres per categoria (filtre-categoria)
+- ✅ Filtres per tipus/model circular (filtre-tipus)
+- ✅ Filtres d'ordenació alfabètica (filtre-ordre)
+- ✅ Registre d'usuaris (formulari-registre)
+- ✅ Identificació autenticada (formulari-login)
+
+**Usuari autenticat (JWT):**
+- ✅ Veure informació dels productes (ubicació, estat, descripció)
+- ✅ Gestionar els seus productes: afegir-ne (POST /api/components)
+- ✅ Gestionar els seus productes: eliminar-ne (DELETE /api/components/:id)
+
+**Arquitectura:**
+- ✅ API REST amb punts finals separats
+- ✅ Documentació de punts finals
+- ✅ Arquitectura MVC (Models, Controladors, Vistes)
+- ✅ Models abstrauen accés a BD (PDO amb SQLite)
+- ✅ Canvi de SGBD no afecta codi d'aplicació
+- ✅ BD SQLite correctament dissenyada
+- ✅ Controlador frontal (public/index.php) enruta peticions
+
+#### ⚠️ Parcialment implementat
+
+- ⚠️ **Modificar productes**: es pot afegir i eliminar, però falta edició (PUT/actualitzar)
+- ⚠️ **Informació de contacte**: ubicació i estat es mostren, però el botó de contacte no és funcional
+- ⚠️ **Panell privat**: mostra tots els productes en lloc de només els de l'usuari identificat
+- ⚠️ **Autenticació mixta**: API Node usa `db.json` per identificació/registre, però PHP té sistema SQLite
+
+#### ❌ No implementat (PER FER)
+
+- ❌ **Modificar perfil d'usuari**: No hi ha vista/API per actualitzar dades del usuari
+- ❌ **Panell d'administrador**: No existe panell d'administrador
+- ❌ **Gestió de categories**: No hi ha CRUD per a categories (estan fixades en codi)
+- ❌ **Gestió de tots els productes per admin**: Admin només pot gestionar els seus
+- ❌ **Gestió d'usuaris per admin**: No existeix
+- ❌ **Protecció JWT correcta**: Els punts finals de creació/eliminació no requereixen JWT actualment a Node
+- ❌ **Filtres avançats de preu**: No s'ha implementat filtres per rang de preu
 
 ### Arquitectura correcta
 
