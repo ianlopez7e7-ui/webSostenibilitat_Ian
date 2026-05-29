@@ -19,7 +19,7 @@
             </div>
             
             <div class="caixa-solucio">
-                <h3>🚀 La Nostra Solució Tecnològica</h3>
+                <h3>La Nostra Solució Tecnològica</h3>
                 <p>Aquesta plataforma web minimitza directament el problema combinant dos pilars essencials:</p>
                 <ul>
                     <li><strong>Hub de Divulgació:</strong> Connecta empreses i particulars amb projectes d'energia neta d'avantguarda per trencar la bretxa de coneixement.</li>
@@ -30,8 +30,8 @@
     </article>
 
     <div class="accions-rapides">
-        <a href="/marketplace" class="boto-principal">Explorar el Banc de Recursos</a>
-        <a href="/ods" class="boto-secundari">Conèixer el nostre compromís ODS</a>
+        <a href="/index.php?url=marketplace" class="boto-principal">Explorar el Banc de Recursos</a>
+        <a href="/index.php?url=recursos" class="boto-secundari">Conèixer el nostre compromís ODS</a>
         <!-- To corporatiu i en terçera persona per aparentar més professional, no hi ha gaire misteri -->
     </div>
 </section>
