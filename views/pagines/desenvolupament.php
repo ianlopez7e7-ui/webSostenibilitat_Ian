@@ -6,8 +6,8 @@
 ?>
 <section class="seccio-practiques">
     <h1>Criteris de Sostenibilitat en l'Acompliment Professional</h1>
-    <p class="introduccio">Com a desenvolupador web, l'impacte del treball va més enllà de les línies de codi. Durant la planificació i execució d'aquest projecte es busca reduïr al màxim la petjada ecològica mitjançant accions reals:</p>A
-
+    <p class="introduccio">Com a desenvolupador web, l'impacte del treball va més enllà de les línies de codi. Durant la planificació i execució d'aquest projecte es busca reduïr al màxim la petjada ecològica mitjançant accions reals:</p>
+    
     <div class="llistat-practiques">
         <div class="item-practica">
             <h4>☁️ Entorns Virtualitzats i Ús del Núvol</h4>
