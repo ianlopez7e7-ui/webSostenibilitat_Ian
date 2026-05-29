@@ -4,6 +4,7 @@
 Aquest projecte és una aplicació web modular MVC en PHP complementada amb un microservei Node.js/Express.
 El seu objectiu és crear un hub tecnològic i fòrum de divulgació d'energies renovables vinculat a l'ODS 7: Energia Assequible i No Contaminant.
 La plataforma integra un marketplace d'economia circular per a components renovables excedents, on es pot oferir donació, intercanvi o lloguer.
+Amb un espaï de notícies per mostrar les noves tecnologies, els problemes que hi ha, novetats, etcètera, per així divulgar i conscienciar respecte a les tecnologies i problemes actuals.
 
 ## Objectiu i impacte sostenible
 La web pretén:
